@@ -1,19 +1,19 @@
-# Claude API 代理服务器
+# Claude / Codex / Gemini API Proxy
 
 [![GitHub release](https://img.shields.io/github/v/release/BenedictKing/claude-proxy)](https://github.com/BenedictKing/claude-proxy/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-一个高性能的 Claude API 代理服务器，支持多种上游 AI 服务提供商（OpenAI、Gemini、自定义 API），提供负载均衡、多 API 密钥管理和统一入口访问。
+一个高性能的 Claude API 代理服务器，支持多种上游 AI 服务提供商（Claude、Codex、Gemini），提供负载均衡、多 API 密钥管理和统一入口访问。
 
 ## 🚀 功能特性
 
 - **🖥️ 一体化架构**: 后端集成前端，单容器部署，完全替代 Nginx
 - **🔐 统一认证**: 一个密钥保护所有入口（前端界面、管理 API、代理 API）
 - **📱 Web 管理面板**: 现代化可视化界面，支持渠道管理、实时监控和配置
-- **双 API 支持**: 同时支持 Claude Messages API (`/v1/messages`) 和 Codex Responses API (`/v1/responses`)
+- **三 API 支持**: 同时支持 Claude Messages API (`/v1/messages`)、Codex Responses API (`/v1/responses`) 和 Gemini API
 - **统一入口**: 通过统一端点访问不同的 AI 服务
-- **多上游支持**: 支持 OpenAI (及兼容 API)、Gemini 和 Claude 等多种上游服务
-- **🔌 协议转换**: Messages API 支持通过 OpenAI 兼容接口转接到其他 AI 服务
+- **多上游支持**: 支持 Claude、Codex 和 Gemini 等多种上游服务
+- **🔌 协议转换**: Messages API 支持协议自动转换，统一接入不同上游服务
 - **🎯 智能调度**: 多渠道智能调度器，支持优先级排序、健康检查和自动熔断
 - **📊 渠道编排**: 可视化渠道管理，拖拽调整优先级，实时查看健康状态
 - **🔄 Trace 亲和**: 同一用户会话自动绑定到同一渠道，提升一致性体验
@@ -40,7 +40,7 @@
 
 ### 添加渠道
 
-支持多种上游服务类型（Claude/OpenAI/Gemini），灵活配置 API 密钥、模型映射和请求参数。
+支持多种上游服务类型（Claude/Codex/Gemini），灵活配置 API 密钥、模型映射和请求参数。
 
 ![添加渠道](docs/screenshots/add-channel-modal.png)
 
@@ -498,8 +498,7 @@ curl -H "x-api-key: your-proxy-access-key" \
 **支持的上游服务**:
 
 - ✅ **Claude API** (Anthropic) - 原生支持，直接透传
-- ✅ **OpenAI API** - 自动转换 Claude 格式 ↔ OpenAI 格式
-- ✅ **OpenAI 兼容 API** - 支持所有兼容 OpenAI 格式的服务
+- ✅ **Codex API** (OpenAI) - 自动转换 Claude 格式 ↔ Codex 格式
 - ✅ **Gemini API** (Google) - 自动转换 Claude 格式 ↔ Gemini 格式
 
 **核心优势**:
@@ -509,7 +508,7 @@ curl -H "x-api-key: your-proxy-access-key" \
 - 🔌 **即插即用**: 无需修改客户端代码即可切换上游服务
 - 💰 **成本优化**: 灵活切换不同价格的 AI 服务
 
-**示例**: 使用 Claude API 格式调用 OpenAI GPT-4
+**示例**: 使用 Claude API 格式调用 Codex
 
 ```bash
 curl -X POST http://localhost:3000/v1/messages \
@@ -522,7 +521,7 @@ curl -X POST http://localhost:3000/v1/messages \
       {"role": "user", "content": "Hello!"}
     ]
   }'
-# 后端自动转换并发送到配置的 OpenAI 上游
+# 后端自动转换并发送到配置的 Codex 上游
 ```
 
 ## 🧪 测试验证
@@ -777,5 +776,5 @@ cd backend-go && make help
 ## 🙏 致谢
 
 - [Anthropic](https://www.anthropic.com/) - Claude API
-- [OpenAI](https://openai.com/) - GPT API
+- [OpenAI](https://openai.com/) - Codex API
 - [Google](https://cloud.google.com/vertex-ai) - Gemini API
